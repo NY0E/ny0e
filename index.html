@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NY0E — Steve</title>
+  <meta name="description" content="NY0E — Amateur radio operator, developer, FAA Part 107 pilot. Kansas City, MO.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0e1117;
+      --surface:  #161b24;
+      --border:   #252d3a;
+      --amber:    #e8a020;
+      --amber-dim:#7a4f08;
+      --amber-bg: #1a1000;
+      --text:     #e8e0d5;
+      --text-mid: #9a9080;
+      --text-dim: #4a4540;
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    /* ── Main container ── */
+    .page {
+      width: 100%;
+      max-width: 560px;
+      padding: 80px 0 60px;
+      flex: 1;
+    }
+
+    /* ── Hero ── */
+    .hero { margin-bottom: 56px; }
+
+    .callsign {
+      font-family: var(--mono);
+      font-size: clamp(52px, 14vw, 80px);
+      font-weight: 500;
+      color: var(--amber);
+      letter-spacing: .06em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .morse {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--text-dim);
+      letter-spacing: .22em;
+      margin-bottom: 20px;
+      user-select: none;
+    }
+
+    .hero-name {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--text-mid);
+      letter-spacing: .08em;
+      margin-bottom: 6px;
+    }
+
+    .hero-location {
+      font-size: 13px;
+      color: var(--text-dim);
+      font-family: var(--mono);
+      letter-spacing: .06em;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 40px 0;
+    }
+
+    /* ── Section ── */
+    .section { margin-bottom: 44px; }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--text-dim);
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section p {
+      font-size: 15px;
+      color: var(--text-mid);
+      line-height: 1.7;
+    }
+
+    /* ── Project cards ── */
+    .projects { display: flex; flex-direction: column; gap: 12px; }
+
+    .project-card {
+      display: block;
+      padding: 16px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      transition: border-color .18s, background .18s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--amber-dim);
+      transition: background .18s;
+    }
+    .project-card:hover { border-color: var(--amber-dim); background: #13180f; }
+    .project-card:hover::before { background: var(--amber); }
+
+    .project-name {
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--amber);
+      margin-bottom: 4px;
+      letter-spacing: .04em;
+    }
+    .project-desc {
+      font-size: 13px;
+      color: var(--text-mid);
+      line-height: 1.55;
+    }
+    .project-url {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 6px;
+      letter-spacing: .04em;
+    }
+
+    /* ── Links list ── */
+    .links { display: flex; flex-direction: column; gap: 2px; }
+
+    .link-row {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .link-row:last-child { border-bottom: none; }
+    .link-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: .1em;
+      min-width: 72px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .link-value {
+      font-size: 14px;
+      color: var(--text-mid);
+      transition: color .15s;
+    }
+    a.link-row:hover .link-value { color: var(--amber); }
+
+    /* ── Certs ── */
+    .certs { display: flex; gap: 10px; flex-wrap: wrap; }
+    .cert {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-mid);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 5px 11px;
+      letter-spacing: .05em;
+    }
+
+    /* ── Footer ── */
+    footer {
+      width: 100%;
+      max-width: 560px;
+      padding: 20px 0 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-call {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-dim);
+      letter-spacing: .08em;
+    }
+    .footer-73 {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--amber-dim);
+      letter-spacing: .1em;
+    }
+
+    @media (max-width: 480px) {
+      .page { padding: 48px 0 40px; }
+      .callsign { margin-bottom: 6px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="callsign">NY0E</div>
+    <div class="morse">-.&nbsp;&nbsp;-.--&nbsp;&nbsp;-----&nbsp;&nbsp;.</div>
+    <div class="hero-name">Steve · Amateur Extra</div>
+    <div class="hero-location">Independence, MO · EM28</div>
+  </div>
+
+  <!-- About -->
+  <div class="section">
+    <div class="section-label">About</div>
+    <p>Licensed ham and software developer building tools for the amateur radio community. I got into the hobby through the technical side — networking, automation, embedded systems — and I'm currently working toward getting on CW with my QMX.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Projects -->
+  <div class="section">
+    <div class="section-label">Projects</div>
+    <div class="projects">
+
+      <a class="project-card" href="https://qrzready.com" target="_blank" rel="noopener">
+        <div class="project-name">QRZReady</div>
+        <div class="project-desc">Ham radio exam prep built around a simple principle: maximize exposure to correct answers, minimize exposure to wrong ones. Starts with one answer, gradually introduces distractors.</div>
+        <div class="project-url">qrzready.com</div>
+      </a>
+
+      <a class="project-card" href="https://cwready.com" target="_blank" rel="noopener">
+        <div class="project-name">CWReady</div>
+        <div class="project-desc">Audio-first CW trainer using the Koch method and Farnsworth spacing. Starts with your own callsign. Forced-choice recognition drills — no counting dots and dashes.</div>
+        <div class="project-url">cwready.com</div>
+      </a>
+
+      <a class="project-card" href="https://github.com/NY0E" target="_blank" rel="noopener">
+        <div class="project-name">GitHub</div>
+        <div class="project-desc">Ham radio projects, notes, and experiments. Open source where possible.</div>
+        <div class="project-url">github.com/NY0E</div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Credentials -->
+  <div class="section">
+    <div class="section-label">Credentials</div>
+    <div class="certs">
+      <div class="cert">Amateur Extra · NY0E</div>
+      <div class="cert">FAA Part 107</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Contact / links -->
+  <div class="section">
+    <div class="section-label">Contact</div>
+    <div class="links">
+      <a class="link-row" href="mailto:ny0e@ny0e.com">
+        <span class="link-label">Email</span>
+        <span class="link-value">ny0e@ny0e.com</span>
+      </a>
+      <a class="link-row" href="https://www.qrz.com/db/NY0E" target="_blank" rel="noopener">
+        <span class="link-label">QRZ</span>
+        <span class="link-value">qrz.com/db/NY0E</span>
+      </a>
+      <a class="link-row" href="https://www.youtube.com/@DadTechPOV" target="_blank" rel="noopener">
+        <span class="link-label">YouTube</span>
+        <span class="link-value">@DadTechPOV</span>
+      </a>
+      <a class="link-row" href="https://github.com/NY0E" target="_blank" rel="noopener">
+        <span class="link-label">GitHub</span>
+        <span class="link-value">NY0E</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span class="footer-call">NY0E · Independence, MO</span>
+  <span class="footer-73">73</span>
+</footer>
+
+</body>
+</html>
